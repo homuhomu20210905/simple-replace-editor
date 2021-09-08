@@ -23,29 +23,30 @@
     "@types/node": "12.12.6"
   },
   "devDependencies": {
+    "@nuxt/typescript-build": "2.1.0",
+    "@nuxtjs/eslint-config-typescript": "6.0.0",
+    "@nuxtjs/vuetify": "1.11.3",
     "@xpda-dev/core": "^0.1.6",
-    "@xpda-dev/electron-launcher": "^0.3.0",
     "@xpda-dev/electron-builder": "^0.2.1",
+    "@xpda-dev/electron-launcher": "^0.3.0",
     "@xpda-dev/webpack-step": "^0.1.2",
-    "deepmerge": "4.2.2",
     "browser-env": "3.3.0",
     "cross-env": "7.0.3",
+    "deepmerge": "4.2.2",
     "electron": "12.0.6",
     "electron-builder": "22.11.3",
+    "electron-devtools-installer": "3.2.0",
     "eslint": "7.25.0",
     "eslint-friendly-formatter": "4.0.1",
     "eslint-loader": "4.0.2",
-    "@nuxtjs/eslint-config-typescript": "6.0.0",
     "nuxt": "2.15.6",
-    "@nuxt/typescript-build": "2.1.0",
-    "electron-devtools-installer": "3.2.0",
     "roboto-fontface": "0.10.0",
     "vuetify": "2.5.1",
-    "@nuxtjs/vuetify": "1.11.3",
     "webpack": "4.44.2",
     "webpack-node-externals": "2.5.2"
   },
   "dependencies": {
+    "vue-shortkey": "^3.1.7",
     "yarn": "^1.22.11"
   }
 }

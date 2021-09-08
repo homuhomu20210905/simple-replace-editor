@@ -42,7 +42,6 @@ const baseExtend = (config, { isClient }) => {
       'process.resourcesPath': isClient ? resourcesPath.nuxtClient() : resourcesPath.nuxtServer()
     })
   )
-
   config.module = config.module || {}
   config.module.rules = config.module.rules || []
 

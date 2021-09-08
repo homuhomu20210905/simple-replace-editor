@@ -1,91 +1,73 @@
 <template>
-  <div class="e-nuxt-container">
-    <div class="e-nuxt-content">
-      <div class="e-nuxt-logo">
-        <img style="max-width: 100%;" src="~assets/electron-nuxt.png">
-      </div>
-      <div class="e-nuxt-system-info">
-        <system-information />
-      </div>
-    </div>
-    <div class="e-nuxt-links">
-      <div class="e-nuxt-button" @click="openURL('https://github.com/michalzaq12/electron-nuxt')">
-        Github
-      </div>
-      <div class="e-nuxt-button" @click="openURL('https://nuxtjs.org/guide')">
-        Nuxt.js
-      </div>
-      <div class="e-nuxt-button" @click="openURL('https://electronjs.org/docs')">
-        Electron.js
-      </div>
-    </div>
+  <div>
+    <div style="height:120px;" />
+    <v-row>
+      <v-col cols="6">
+        <v-text-field ref="findText" v-model="findText" label="alt + f" accesskey="f" />
+      </v-col>
+      <v-col cols="6">
+        <v-text-field v-model="replaceText" label="alt + r" accesskey="r" />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <v-textarea v-model="originalText" label="alt + o" accesskey="o" />
+      </v-col>
+      <v-col cols="12">
+        <v-row>
+          <v-col v-for="(item,index) in list" :key="index" cols="12">
+            <v-card outlined @click="copyText(item)"><pre>{{ headStr(item) }}</pre></v-card>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
-import { remote } from 'electron'
-import SystemInformation from '@/components/SystemInformation.vue'
+import { clipboard } from 'electron'
 
 export default {
-  components: {
-    SystemInformation
-  },
   data () {
     return {
-      externalContent: ''
+      findText: '',
+      replaceText: '',
+      originalText: '',
+      resultText: ''
+    }
+  },
+  computed: {
+    resultSprit () {
+      return this.originalText.split('[¥r¥n]')
+    },
+    normal () {
+      return this.resultSprit.map(line => {
+        return line.split(this.findText).join(this.replaceText)
+      }).join('¥n')
+    },
+    regExpText () {
+      const reg = new RegExp(this.findText, 'g')
+      return this.resultSprit.map(line => {
+        return line.replace(reg, this.replaceText)
+      }).join('¥n')
+    },
+    list () {
+      return [this.normal, this.regExpText]
     }
   },
   methods: {
-    openURL (url) {
-      remote.shell.openExternal(url)
+    headStr (value) {
+      const limit = 100
+      if (value.length >= limit) {
+        return value.substring(0, limit) + '...'
+      }
+      return value
+    },
+    copyText (value) {
+      clipboard.writeText(value)
     }
   }
 }
 </script>
 
-<style>
-.e-nuxt-container {
-  min-height: calc(100vh - 50px);
-  background: linear-gradient(to right, #ece9e6, #ffffff);
-  font-family: Helvetica, sans-serif;
-}
-
-.e-nuxt-content {
-  display: flex;
-  justify-content: space-around;
-  padding-top: 100px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.e-nuxt-logo{
-  width: 400px;
-}
-
-.e-nuxt-system-info {
-  padding: 20px;
-  border-top: 1px solid #397c6d;
-  border-bottom: 1px solid #397c6d;
-}
-
-.e-nuxt-links {
-  padding: 100px 0;
-  display: flex;
-  justify-content: center;
-}
-
-.e-nuxt-button {
-  color: #364758;
-  padding: 5px 20px;
-  border: 1px solid #397c6d;
-  margin: 0 20px;
-  border-radius: 15px;
-  font-size: 1rem;
-}
-
-.e-nuxt-button:hover{
-  cursor: pointer;
-  color: white;
-  background-color: #397c6d;
-}
-</style>
+<style></style>

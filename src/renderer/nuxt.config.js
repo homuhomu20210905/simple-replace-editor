@@ -13,7 +13,7 @@ module.exports = {
   },
   loading: false,
   plugins: [
-
+    //    '~/src/renderer/plugins/shortkey.js'
   ],
   buildModules: [
     '@nuxt/typescript-build'
@@ -23,8 +23,9 @@ module.exports = {
   ],
   vuetify: {
     theme: {
+      dark: true,
       themes: {
-        light: {
+        dark: {
           primary: '#1867c0',
           secondary: '#b0bec5',
           accent: '#8c9eff',
