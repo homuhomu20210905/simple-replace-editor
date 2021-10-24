@@ -17,6 +17,7 @@ module.exports = {
   ],
   buildModules: [
     '@nuxt/typescript-build'
+    //    'nuxt-vite'
   ],
   modules: [
     '@nuxtjs/vuetify'
